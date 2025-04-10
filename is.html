@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diffie-Hellman Key Exchange</title>
+</head>
+<body>
+    <h2>Diffie-Hellman Key Exchange</h2>
+    <hr>
+
+    <script>
+        // Function to calculate (a^b) % p using modular exponentiation
+        function power(a, b, p) {
+            let result = 1;
+            a = a % p;
+
+            while (b > 0) {
+                if (b % 2 === 1) {
+                    result = (result * a) % p;
+                }
+                b = Math.floor(b / 2);
+                a = (a * a) % p;
+            }
+
+            return result;
+        }
+
+        var P = 11;  // Prime number
+        var G = 7;   // Primitive root
+
+        var a = 4;   // Alice's private key
+        var b = 3;   // Bob's private key
+
+        var x = power(G, a, P);  // Alice's public key
+        var y = power(G, b, P);  // Bob's public key
+
+        var ka = power(y, a, P); // Alice's secret key
+        var kb = power(x, b, P); // Bob's secret key
+
+        document.write("P (prime): " + P + "<br>");
+        document.write("G (base): " + G + "<br>");
+        document.write("Alice's private key: " + a + "<br>");
+        document.write("Bob's private key: " + b + "<br>");
+        document.write("Alice's public key: " + x + "<br>");
+        document.write("Bob's public key: " + y + "<br>");
+        document.write("Alice's secret key: " + ka + "<br>");
+        document.write("Bob's secret key: " + kb + "<br>");
+        document.write("<b>Shared secret key: " + ka + "</b><br>");
+    </script>
+</body>
+</html>
